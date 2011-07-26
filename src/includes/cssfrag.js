@@ -1,14 +1,15 @@
 /**
  * Authors: David Håsäther, <dhasather@gmail.com>
- * Version: 0.1
+ * Version: 0.2
  *
  * Supports a subset of http://simonstl.com/articles/cssFragID.html
  */
-function goToCssFrag(frag) {
+function goToCssFrag(selector) {
     try {
-      var ele = document.querySelector(frag);
+      var ele = document.querySelector(selector);
       if (ele) {
           ele.scrollIntoView(true);
+          ele.focus();
       }
     }
     catch (syntaxErrorException) {
@@ -16,12 +17,12 @@ function goToCssFrag(frag) {
     }
 }
 
-function getCssFrag() {
-    var frags = window.location.hash.match(/^#css\((.+)\)/);
-    var frag = frags && frags[1];
-    if (frag) {
+function getSelector() {
+    var selectors = window.location.hash.match(/^#css\((.+)\)/);
+    var selector = selectors && selectors[1];
+    if (selector) {
         try {
-            return decodeURIComponent(frag);
+            return decodeURIComponent(selector);
         }
         catch (uriError) {
             console.error("CSSFrag extension: Wrong CSS fragment syntax.");
@@ -30,9 +31,9 @@ function getCssFrag() {
 }
 
 function onHash() {
-    var frag = getCssFrag();
-    if (frag) {
-        goToCssFrag(frag);
+    var selector = getSelector();
+    if (selector) {
+        goToCssFrag(selector);
     }
 }
 

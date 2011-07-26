@@ -8,7 +8,7 @@ function goToCssFrag(selector) {
     try {
       var ele = document.querySelector(selector);
       if (ele) {
-          ele.scrollIntoView(true);
+          ele.scrollIntoView();
           ele.focus();
       }
     }
@@ -19,10 +19,9 @@ function goToCssFrag(selector) {
 
 function getSelector() {
     var selectors = window.location.hash.match(/^#css\((.+)\)/);
-    var selector = selectors && selectors[1];
-    if (selector) {
+    if (selectors) {
         try {
-            return decodeURIComponent(selector);
+            return decodeURIComponent(selectors[1]);
         }
         catch (uriError) {
             console.error("CSSFrag extension: Wrong CSS fragment syntax.");
